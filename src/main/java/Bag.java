@@ -76,24 +76,23 @@ public abstract class Bag {
      *       This method should return true if the item was added
      *       and false otherwise.
      */
-    public boolean addItem(String item) {
+    public boolean addItem(String item){
 
-        if (this.numberOfContents == 0) {
+        if(this.numberOfContents == 0){
             this.contents[0] = item;
+            this.numberOfContents += 1;
             return true;
-        } else if (this.numberOfContents < this.capacity) {
-            for (int i = 0; i < this.capacity; i++) {
-                if (this.contents[i] == null) {
-                    this.contents[i] = item;
+        }else if(this.numberOfContents < this.capacity){
+            for(int i = 0; i < this.capacity; i++){
+                if(this.contents[i + 1] == null){
+                    this.contents[i + 1] = item;
+                    this.numberOfContents += 1;
                     return true;
                 }
-
             }
         }
         return false;
-
     }
-
 
     /**
      * TODO: Create a method called popItem that returns a String.
@@ -110,9 +109,11 @@ public abstract class Bag {
         String popped = null;
 
         for(int i = 0; i < this.capacity; i++){
-            if(i == this.capacity - 1){
+            if(this.contents[i+1] == null || i == this.capacity - 1){
                 popped = this.contents[i];
                 this.contents[i] = null;
+                this.numberOfContents -= 1;
+                break;
             }
         }
         return popped;
